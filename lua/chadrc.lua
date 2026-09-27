@@ -12,22 +12,15 @@ M.base46 = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
 
-    -- ??  Untracked          -> verde
     NvimTreeGitNew = { fg = "green" },
-    -- " M" Modified/unstaged -> naranja
     NvimTreeGitDirty = { fg = "orange" },
-    -- " D" Deleted           -> rojo
     NvimTreeGitDeleted = { fg = "red" },
-    -- !!  Ignored           -> atenuado a proposito
     NvimTreeGitIgnored = { fg = "grey_fg2" },
   },
 
   hl_add = {
-    -- "A " Staged  -> cian (alternativa de la guia)
     NvimTreeGitStaged = { fg = "cyan" },
-    -- "R " Renamed -> azul
     NvimTreeGitRenamed = { fg = "blue" },
-    -- UU  Merge    -> la guia no lo cubre; morado para no chocar
     NvimTreeGitMerge = { fg = "purple" },
   },
 }
