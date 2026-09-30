@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "alien_blood",
+  theme = "catppuccin-latte",
 
   hl_override = {
     Comment = { italic = true },
@@ -56,11 +56,18 @@ M.mason = {
     "vue-language-server",
     "jdtls",
     "clangd",
+    "texlab",
     -- Formatter
     "ruff",
     "prettierd",
     "clang-format",
+    "latexindent",
+    "bibtex-tidy",
     -- DAP
+    "codelldb",
+    "debugpy",
+    "java-debug-adapter",
+    "java-test",
   },
   skip = {},
 }

@@ -16,6 +16,8 @@ local options = {
       -- To organize the imports.
       "ruff_organize_imports",
     },
+    bibtex = { "bibtex-tidy" },
+    tex = { "latexindent" },
   },
 
   format_on_save = {

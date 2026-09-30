@@ -34,6 +34,8 @@ return {
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
 
+  { import = "plugins.notify" },
+
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -51,6 +53,9 @@ return {
         "c",
         "cpp",
         "java",
+        "latex",
+        "bibtex",
+        "latex",
       },
     },
   },
@@ -60,5 +65,12 @@ return {
     opts = function()
       return require "configs.nvimtree"
     end,
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      spec = require "configs.whichkey",
+    },
   },
 }
