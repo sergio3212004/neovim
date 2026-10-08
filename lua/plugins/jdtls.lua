@@ -89,7 +89,8 @@ return {
       local mason_registry = require "mason-registry"
       if opts.dap and has_plugin "nvim-dap" and mason_registry.is_installed "java-debug-adapter" then
         local mason_path = vim.fn.stdpath "data" .. "/mason"
-        bundles = vim.fn.glob(mason_path .. "/share/java-debug-adapter/com.microsoft.java.debug.plugin-*jar", false, true)
+        bundles =
+          vim.fn.glob(mason_path .. "/share/java-debug-adapter/com.microsoft.java.debug.plugin-*jar", false, true)
         -- java-test also depends on java-debug-adapter.
         if opts.test and mason_registry.is_installed "java-test" then
           vim.list_extend(bundles, vim.fn.glob(mason_path .. "/share/java-test/*.jar", false, true))
