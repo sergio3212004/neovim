@@ -7,11 +7,11 @@ local options = {
   background_colour = "#000000",
   minimum_width = 30,
   icons = {
-    ERROR = "",
-    WARN = "",
-    INFO = "",
-    DEBUG = "",
-    TRACE = "",
+    ERROR = "",
+    WARN = "",
+    INFO = "",
+    DEBUG = "",
+    TRACE = "✎",
   },
 }
 
