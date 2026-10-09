@@ -34,7 +34,8 @@ return {
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
 
-  { import = "plugins.notify" },
+  { import = "plugins.noice" },
+  { import = "plugins.snacks" },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -56,6 +57,14 @@ return {
         "latex",
         "bibtex",
         "latex",
+        "php",
+        "phpdoc",
+        "blade",
+        -- required for noice.nvim (cmdline highlighting + lsp hover docs)
+        "regex",
+        "bash",
+        "markdown",
+        "markdown_inline",
       },
     },
   },

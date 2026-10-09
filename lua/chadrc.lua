@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "onedark",
+  theme = "catppuccin-latte",
 
   hl_override = {
     Comment = { italic = true },
@@ -57,12 +57,16 @@ M.mason = {
     "jdtls",
     "clangd",
     "texlab",
+    "phpantom_lsp",
+    "laravel_lsp",
     -- Formatter
     "ruff",
     "prettierd",
     "clang-format",
     "latexindent",
     "bibtex-tidy",
+    "php-cs-fixer",
+    "blade-formatter",
     -- DAP
     "codelldb",
     "debugpy",

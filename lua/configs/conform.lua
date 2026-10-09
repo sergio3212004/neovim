@@ -18,6 +18,8 @@ local options = {
     },
     bibtex = { "bibtex-tidy" },
     tex = { "latexindent" },
+    php = { "php-cs-fixer" },
+    blade = { "blade-formatter" },
   },
 
   format_on_save = {
