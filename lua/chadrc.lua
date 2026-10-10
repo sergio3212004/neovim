@@ -87,6 +87,7 @@ M.mason = {
     "texlab",
     "phpantom_lsp",
     "laravel_lsp",
+    "sqls",
     -- Formatter
     "ruff",
     "prettierd",
@@ -95,6 +96,7 @@ M.mason = {
     "bibtex-tidy",
     "php-cs-fixer",
     "blade-formatter",
+    "sqlfluff",
     -- DAP
     "codelldb",
     "debugpy",

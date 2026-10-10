@@ -1,3 +1,5 @@
+local sql_ft = { "sql", "mysql", "plsql" }
+
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
@@ -22,11 +24,22 @@ local options = {
     blade = { "blade-formatter" },
   },
 
+  formatters = {
+    sqlfluff = {
+      args = { "format", "--dialect=ansi", "-" },
+    },
+  },
+
   format_on_save = {
     -- These options will be passed to conform.format()
     timeout_ms = 500,
     lsp_fallback = true,
   },
 }
+
+for _, ft in ipairs(sql_ft) do
+  options.formatters_by_ft[ft] = options.formatters_by_ft[ft] or {}
+  table.insert(options.formatters_by_ft[ft], "sqlfluff")
+end
 
 return options
