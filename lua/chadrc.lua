@@ -44,7 +44,35 @@ M.ui = {
     -- round and block will work for minimal theme only
     separator_style = "round",
     order = nil,
-    modules = nil,
+
+    modules = {
+      -- Show every LSP client attached to the current buffer instead of only
+      -- the first one (NvChad's default `nvchad.stl.utils.lsp`).
+      -- Same format as the default: "  LSP ~ name " when wide enough,
+      -- otherwise just the " L SP " label.
+      lsp = function()
+        if not rawget(vim, "lsp") then
+          return ""
+        end
+
+        local bufnr = require("nvchad.stl.utils").stbufnr()
+        local names = {}
+
+        for _, client in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
+          names[#names + 1] = client.name
+        end
+
+        if #names == 0 then
+          return ""
+        end
+
+        local icon = vim.fn.nr2char(0xf085)
+        local label = (vim.o.columns > 100 and (" " .. icon .. "  LSP ~ " .. table.concat(names, ", ") .. " "))
+          or (" " .. icon .. "  LSP ")
+
+        return "%#St_Lsp#" .. label
+      end,
+    },
   },
 }
 

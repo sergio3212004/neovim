@@ -65,6 +65,7 @@ return {
         "bash",
         "markdown",
         "markdown_inline",
+        "xml",
       },
     },
   },
