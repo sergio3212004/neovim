@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "catppuccin-latte",
+  theme = "catppuccin",
 
   hl_override = {
     Comment = { italic = true },
@@ -82,6 +82,7 @@ M.mason = {
     "ty",
     "vtsls",
     "vue-language-server",
+    "tailwindcss-language-server",
     "jdtls",
     "clangd",
     "texlab",

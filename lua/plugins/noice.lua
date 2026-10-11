@@ -136,13 +136,13 @@ return {
         view = "notify",
       },
       lsp = {
-        -- División de tareas: noice y nvim-notify son una extensión para el cmdline
-        -- y las notificaciones. Todo lo que NvChad (o nvim nativo) ya hace bien se
-        -- queda en NvChad y noice lo tiene desactivado para no repartir tareas.
+        -- Division of labor: noice and nvim-notify are an extension for the cmdline
+        -- and notifications. Everything NvChad (or native nvim) already does well
+        -- stays in NvChad and noice has it disabled to avoid overlapping duties.
         progress = {
-          -- El progreso de los LSP lo muestra NvChad en la statusline
-          -- (`nvchad/stl/utils.lua`), así que noice lo tiene desactivado para que
-          -- no aparezcan dos indicadores de "loading" a la vez.
+          -- LSP progress is shown by NvChad in the statusline
+          -- (`nvchad/stl/utils.lua`), so noice has it disabled so that
+          -- two "loading" indicators don't appear at the same time.
           enabled = false,
           -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
           -- See the section on formatting for more details on how to customize.
@@ -153,19 +153,19 @@ return {
           throttle = 1000 / 30, -- frequency to update lsp progress message
           view = "mini",
         },
-        -- El signature help ya lo hace NvChad (autotrigger nativo con `focus = false`,
-        -- que no roba el foco). Desactivado en noice: cuando noice también lo
-        -- gestionaba, su hook de `vim.lsp.buf.signature_help` hacía doble trigger y
-        -- el cursor saltaba al popup.
+        -- Signature help is already handled by NvChad (native autotrigger with `focus = false`,
+        -- which doesn't steal focus). Disabled in noice: when noice also
+        -- managed it, its `vim.lsp.buf.signature_help` hook double-triggered and
+        -- the cursor jumped to the popup.
         signature = {
           enabled = false,
         },
-        -- El hover se mantiene nativo de Neovim (noice no lo reemplaza).
+        -- Hover stays native to Neovim (noice doesn't replace it).
         hover = {
           enabled = false,
         },
-        -- Los toasts de los LSP (window/showMessage) van por `vim.notify` ->
-        -- nvim-notify, que es el encargado de las notificaciones.
+        -- LSP toasts (window/showMessage) go through `vim.notify` ->
+        -- nvim-notify, which handles the notifications.
         message = {
           enabled = false,
           view = "notify",
@@ -175,7 +175,11 @@ return {
       markdown = {
         hover = {
           ["|(%S-)|"] = vim.cmd.help, -- vim help links
-          ["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+          -- Deferred: `require` must not run while reading this file (noice
+          -- isn't loaded yet at that point). It's resolved at use time.
+          ["%[.-%]%((%S-)%)"] = function(...)
+            return require("noice.util").open(...)
+          end, -- markdown links
         },
         highlights = {
           ["|%S-|"] = "@text.reference",

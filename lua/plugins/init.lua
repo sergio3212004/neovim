@@ -13,24 +13,7 @@ return {
     end,
   },
 
-  {
-    "nvzone/floaterm",
-    dependencies = "nvzone/volt",
-    opts = {
-      mappings = {
-        sidebar = function(buf)
-          vim.keymap.set("n", "<C-t>", "<cmd>FloatermToggle<cr>", { buffer = buf, desc = "Floaterm: toggle" })
-        end,
-        term = function(buf)
-          vim.keymap.set({ "n", "t" }, "<C-p>", function()
-            require("floaterm.api").cycle_term_bufs "prev"
-          end, { buffer = buf })
-          vim.keymap.set("n", "<C-t>", "<cmd>FloatermToggle<cr>", { buffer = buf, desc = "Floaterm: toggle" })
-        end,
-      },
-    },
-    cmd = "FloatermToggle",
-  },
+  { import = "plugins.floaterm" },
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
 
