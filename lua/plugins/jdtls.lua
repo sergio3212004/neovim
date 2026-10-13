@@ -171,39 +171,51 @@ return {
           if has_plugin "mason.nvim" then
             local mason_registry = require "mason-registry"
             if opts.dap and has_plugin "nvim-dap" and mason_registry.is_installed "java-debug-adapter" then
-              -- custom init for Java debugger
               require("jdtls").setup_dap(opts.dap)
               if opts.dap_main then
                 require("jdtls.dap").setup_dap_main_class_configs(opts.dap_main)
               end
 
-              -- Java Test require Java debugger to work
               if opts.test and mason_registry.is_installed "java-test" then
-                -- custom keymaps for Java test runner (not yet compatible with neotest)
+                local nt = require "neotest"
                 wk.add {
                   {
                     mode = "n",
                     buffer = args.buf,
                     { "<leader>t", group = "test" },
+                    { "<leader>tn", nt.run.run, desc = "Run Nearest" },
                     {
-                      "<leader>tt",
+                      "<leader>tf",
                       function()
-                        require("jdtls.dap").test_class {
-                          config_overrides = type(opts.test) ~= "boolean" and opts.test.config_overrides or nil,
-                        }
+                        nt.run.run(vim.fn.expand "%")
                       end,
-                      desc = "Run All Test",
+                      desc = "Run File",
                     },
                     {
-                      "<leader>tr",
+                      "<leader>ta",
                       function()
-                        require("jdtls.dap").test_nearest_method {
-                          config_overrides = type(opts.test) ~= "boolean" and opts.test.config_overrides or nil,
-                        }
+                        nt.run.run(vim.loop.cwd())
                       end,
-                      desc = "Run Nearest Test",
+                      desc = "Run All",
                     },
-                    { "<leader>tT", require("jdtls.dap").pick_test, desc = "Run Test" },
+                    {
+                      "<leader>td",
+                      function()
+                        nt.run.run { strategy = "dap" }
+                      end,
+                      desc = "Debug Nearest",
+                    },
+                    { "<leader>ts", nt.summary.toggle, desc = "Summary" },
+                    {
+                      "<leader>to",
+                      function()
+                        nt.output.open { enter = true }
+                      end,
+                      desc = "Output",
+                    },
+                    { "<leader>tO", nt.output_panel.toggle, desc = "Output Panel" },
+                    { "<leader>tw", nt.watch.toggle, desc = "Watch" },
+                    { "<leader>tS", nt.stop, desc = "Stop" },
                   },
                 }
               end

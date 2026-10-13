@@ -10,6 +10,18 @@ return {
 
       dapui.setup()
 
+      -- neotest's DAP strategy registers its listeners under a "neotest_*" id
+      -- (see neotest/client/strategies/dap/init.lua). For those runs we keep
+      -- dap-ui open after the session ends so the test output stays visible.
+      local function is_neotest_session()
+        for id in pairs(dap.listeners.after.event_exited or {}) do
+          if type(id) == "string" and id:match "^neotest_" then
+            return true
+          end
+        end
+        return false
+      end
+
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()
       end
@@ -17,10 +29,14 @@ return {
         dapui.open()
       end
       dap.listeners.before.event_terminated.dapui_config = function()
-        dapui.close()
+        if not is_neotest_session() then
+          dapui.close()
+        end
       end
       dap.listeners.before.event_exited.dapui_config = function()
-        dapui.close()
+        if not is_neotest_session() then
+          dapui.close()
+        end
       end
     end,
   },

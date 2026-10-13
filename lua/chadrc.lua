@@ -89,6 +89,7 @@ M.mason = {
     "phpantom_lsp",
     "laravel_lsp",
     "sqls",
+    "lemminx",
     -- Formatter
     "ruff",
     "prettierd",
@@ -98,6 +99,7 @@ M.mason = {
     "php-cs-fixer",
     "blade-formatter",
     "sqlfluff",
+    "xmlformatter",
     -- DAP
     "codelldb",
     "debugpy",

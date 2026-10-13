@@ -1,7 +1,19 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local servers =
-  { "html", "cssls", "ty", "vtsls", "vue_ls", "clangd", "texlab", "phpantom_lsp", "laravel_lsp", "sqls", "tailwindcss" }
+local servers = {
+  "html",
+  "cssls",
+  "ty",
+  "vtsls",
+  "vue_ls",
+  "clangd",
+  "texlab",
+  "phpantom_lsp",
+  "laravel_lsp",
+  "sqls",
+  "tailwindcss",
+  "lemminx",
+}
 
 -- `vue_ls` works in "hybrid mode": it delegates all TypeScript handling to
 -- `vtsls`, which needs the `@vue/typescript-plugin` to understand `.vue` files.

@@ -102,22 +102,14 @@ dap.configurations.python = {
   },
 }
 
--- ── Java (java-debug-adapter via Mason) ──────────────────────────────────────
-local java_debug_adapter = vim.fn.stdpath "data" .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
-
-dap.adapters.java = function(callback)
-  local jars = vim.fn.glob(java_debug_adapter, false, true)
-  if #jars == 0 then
-    vim.notify("java-debug-adapter not found. Install it with :MasonInstall java-debug-adapter", vim.log.levels.ERROR)
-    return
-  end
-  callback {
-    type = "executable",
-    command = "java",
-    args = { "-jar", jars[1] },
-  }
-end
-
+-- ── Java (java-debug-adapter via jdtls) ──────────────────────────────────────
+-- IMPORTANT: do NOT define `dap.adapters.java` here.
+-- The correct adapter is registered by `require("jdtls").setup_dap()` in
+-- lua/plugins/jdtls.lua. nvim-jdtls bails out if a java adapter already exists
+-- (jdtls/dap.lua: `if dap.adapters.java then return end`), so defining it here
+-- prevents the good one from being registered.
+-- Also, `com.microsoft.java.debug.plugin-*.jar` is an OSGi bundle, not an
+-- executable jar: `java -jar` fails with "no main manifest attribute" (exit 1).
 dap.configurations.java = {
   {
     type = "java",
@@ -135,16 +127,8 @@ dap.configurations.java = {
       return tonumber(vim.fn.input("Port [5005]: ")) or 5005
     end,
   },
-  {
-    type = "java",
-    request = "launch",
-    name = "Debug - Current File",
-    mainClass = function()
-      return vim.fn.expand("%:t:r")
-    end,
-    projectName = function()
-      local root = vim.fs.root(0, { ".git", "pom.xml", "build.gradle" })
-      return root and vim.fs.basename(root) or ""
-    end,
-  },
 }
+
+-- The "launch" configurations (Debug - Current File / main classes) are added
+-- automatically by nvim-jdtls via `setup_dap_main_class_configs`, which is
+-- already called from lua/plugins/jdtls.lua.

@@ -22,6 +22,7 @@ local options = {
     tex = { "latexindent" },
     php = { "php-cs-fixer" },
     blade = { "blade-formatter" },
+    xml = { "xmlformatter" },
   },
 
   formatters = {
