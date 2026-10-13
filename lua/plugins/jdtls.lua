@@ -177,47 +177,9 @@ return {
               end
 
               if opts.test and mason_registry.is_installed "java-test" then
-                local nt = require "neotest"
-                wk.add {
-                  {
-                    mode = "n",
-                    buffer = args.buf,
-                    { "<leader>t", group = "test" },
-                    { "<leader>tn", nt.run.run, desc = "Run Nearest" },
-                    {
-                      "<leader>tf",
-                      function()
-                        nt.run.run(vim.fn.expand "%")
-                      end,
-                      desc = "Run File",
-                    },
-                    {
-                      "<leader>ta",
-                      function()
-                        nt.run.run(vim.loop.cwd())
-                      end,
-                      desc = "Run All",
-                    },
-                    {
-                      "<leader>td",
-                      function()
-                        nt.run.run { strategy = "dap" }
-                      end,
-                      desc = "Debug Nearest",
-                    },
-                    { "<leader>ts", nt.summary.toggle, desc = "Summary" },
-                    {
-                      "<leader>to",
-                      function()
-                        nt.output.open { enter = true }
-                      end,
-                      desc = "Output",
-                    },
-                    { "<leader>tO", nt.output_panel.toggle, desc = "Output Panel" },
-                    { "<leader>tw", nt.watch.toggle, desc = "Watch" },
-                    { "<leader>tS", nt.stop, desc = "Stop" },
-                  },
-                }
+                -- Same <leader>t* mappings that Python gets. See
+                -- lua/configs/neotest_keys.lua.
+                require("configs.neotest_keys").set(args.buf)
               end
             end
           end
@@ -230,7 +192,13 @@ return {
       end,
     })
 
-    -- Avoid race condition by calling attach the first time, since the autocmd won't fire.
-    attach_jdtls()
+    -- Attach immediately for the buffer that triggered the load (the FileType
+    -- autocmd above won't fire for it, because it has already fired). Skip it
+    -- when the plugin was pulled in on a non-Java buffer: neotest loads all of
+    -- its adapters eagerly and neotest-java depends on nvim-jdtls, so opening a
+    -- Python test file would otherwise start a Java language server.
+    if vim.bo.filetype == "java" then
+      attach_jdtls()
+    end
   end,
 }

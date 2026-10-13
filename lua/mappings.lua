@@ -52,22 +52,41 @@ map("n", "<localleader>la", "<plug>(vimtex-context-menu)", { desc = "VimTeX: Con
 -- IMaps list
 map("n", "<localleader>lm", "<plug>(vimtex-imaps-list)", { desc = "VimTeX: List imaps" })
 
--- DAP mappings (<localleader>d prefix)
--- Execution control
-map("n", "<localleader>dc", "<cmd>lua require('dap').continue()<CR>", { desc = "DAP: Continue" })
-map("n", "<localleader>do", "<cmd>lua require('dap').step_over()<CR>", { desc = "DAP: Step over" })
-map("n", "<localleader>di", "<cmd>lua require('dap').step_into()<CR>", { desc = "DAP: Step into" })
-map("n", "<localleader>du", "<cmd>lua require('dap').step_out()<CR>", { desc = "DAP: Step out" })
+-- ── DAP: primary actions (<F...> keys, IDE-style) ────────────────────────────
+-- Follows the VS Code / Visual Studio convention so the muscle memory carries over.
+--   F5     start / continue          F9     toggle breakpoint
+--   S-F5   terminate / stop          S-F9   conditional breakpoint
+--   C-F5   restart                   F10    step over
+--   F6     pause                     F11    step into
+--                                    S-F11  step out
+map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", { desc = "DAP: Start / Continue" })
+map("n", "<S-F5>", "<cmd>lua require('dap').terminate()<CR>", { desc = "DAP: Terminate" })
+map("n", "<C-F5>", "<cmd>lua require('dap').restart()<CR>", { desc = "DAP: Restart" })
+map("n", "<F6>", "<cmd>lua require('dap').pause()<CR>", { desc = "DAP: Pause" })
+map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "DAP: Toggle breakpoint" })
+map(
+  "n",
+  "<S-F9>",
+  "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+  { desc = "DAP: Conditional breakpoint" }
+)
+map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", { desc = "DAP: Step over" })
+map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", { desc = "DAP: Step into" })
+map("n", "<S-F11>", "<cmd>lua require('dap').step_out()<CR>", { desc = "DAP: Step out" })
+
+-- ── DAP: secondary options (<localleader>d prefix) ───────────────────────────
+-- Session
 map("n", "<localleader>dr", "<cmd>lua require('dap').repl.open()<CR>", { desc = "DAP: Open REPL" })
 map("n", "<localleader>dl", "<cmd>lua require('dap').run_last()<CR>", { desc = "DAP: Run last" })
 
 -- Breakpoints
-map("n", "<localleader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "DAP: Toggle breakpoint" })
+map("n", "<localleader>dbl", "<cmd>lua require('dap').list_breakpoints()<CR>", { desc = "DAP: List breakpoints" })
+map("n", "<localleader>dbc", "<cmd>lua require('dap').clear_breakpoints()<CR>", { desc = "DAP: Clear all breakpoints" })
 map(
   "n",
-  "<localleader>dB",
-  "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-  { desc = "DAP: Conditional breakpoint" }
+  "<localleader>dbh",
+  "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+  { desc = "DAP: Log point" }
 )
 
 -- UI & Inspection

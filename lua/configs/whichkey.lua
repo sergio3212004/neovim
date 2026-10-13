@@ -15,7 +15,7 @@ local mappings = {
     icon = "",
     mode = { "n" },
     buffer = nil,
-    desc = "DAP: Debug Adapter Protocol",
+    desc = "DAP: Debug options (primary on <F5>-<F11>)",
     expr = false,
     remap = false,
   },
