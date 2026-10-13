@@ -48,6 +48,9 @@ return {
         "regex",
         "bash",
         "markdown",
+        "comment",
+        "yaml",
+        "typst",
         "markdown_inline",
         "xml",
         -- config / data formats
