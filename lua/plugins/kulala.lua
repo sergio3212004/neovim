@@ -43,22 +43,22 @@ return {
       restore = true,
     },
     treesitter = {
-      -- enable/disable kulala.nvim own
-      -- handling of tree-sitter parser and queries for HTTP scripts
-      -- like downloading, building, and installing the parser and queries.
-      -- disable to manage the parser and queries yourself.
+      -- Enable/disable kulala.nvim's own handling of tree-sitter
+      -- parser and queries for HTTP scripts like downloading,
+      -- building, and installing the parser and queries.
+      -- Disable to manage the parser and queries yourself.
       enable = true,
-      -- path to tree-sitter CLI, if not in PATH
-      -- if enable is false, this is not used
-      -- required for building the parser from the included grammar
+      -- Path to tree-sitter CLI, if not in PATH.
+      -- If enable is false, this is not used.
+      -- Required for building the parser from the included grammar.
       cli_path = "tree-sitter",
     },
-    -- dev, test, prod, can be anything
-    -- see: https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0#environment-files
+    -- dev, test, prod, can be anything.
+    -- See: https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0#environment-files
     default_env = "default",
-    -- `"b"` = per-buffer env (default), `"g"` = global
+    -- "b" = per-buffer env (default), "g" = global
     environment_scope = "b",
-    -- enable reading vscode rest client environment variables
+    -- Enable reading VS Code REST Client environment variables
     vscode_rest_client_environmentvars = false,
 
     -- Response body pretty-printing
