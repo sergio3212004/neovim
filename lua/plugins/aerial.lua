@@ -34,5 +34,7 @@ return {
       vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Aerial: previous" })
       vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Aerial: next" })
     end,
+    default_direction = "float",
+    placement = "edge",
   },
 }

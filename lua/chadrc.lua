@@ -6,14 +6,14 @@
 local M = {}
 
 M.base46 = {
-  theme = "catppuccin",
+  theme = "onedark",
 
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
 
     NvimTreeGitNew = { fg = "green" },
-    NvimTreeGitDirty = { fg = "orange" },
+    NvimTreeGitDirty = { fg = "yellow" },
     NvimTreeGitDeleted = { fg = "red" },
     NvimTreeGitIgnored = { fg = "grey_fg2" },
   },
