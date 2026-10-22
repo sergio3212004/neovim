@@ -22,6 +22,6 @@ return {
       },
     },
     image = {},
-    scrol = {},
+    scroll = {},
   },
 }

@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "onedark",
+  theme = "ayu_dark",
 
   hl_override = {
     Comment = { italic = true },
@@ -34,6 +34,7 @@ M.ui = {
     -- for tailwind, css lsp etc
     format_colors = { lsp = true, icon = "󱓻" },
   },
+  telescope = { style = "bordered" },
   tabufline = {
     lazyload = false,
   },

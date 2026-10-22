@@ -5,3 +5,4 @@ require "nvchad.options"
 local o = vim.o
 o.cursorlineopt = "both" -- to enable cursorline!
 o.title = true
+o.linebreak = true

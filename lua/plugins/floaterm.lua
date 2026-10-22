@@ -6,6 +6,7 @@ return {
     local user_opts = {
       -- Interval of the asynchronous RAM polling in milliseconds
       ram_update_ms = 2000,
+      border = true,
       mappings = {
         sidebar = function(buf)
           vim.keymap.set("n", "<C-t>", "<cmd>FloatermToggle<cr>", { buffer = buf, desc = "Floaterm: toggle" })
@@ -98,14 +99,18 @@ return {
       local ms_to_minute = ((math.floor(now / 60) + 1) * 60 - now) * 1000
 
       state.clock_timer = state.clock_timer or vim.uv.new_timer()
-      state.clock_timer:start(ms_to_minute, 0, vim.schedule_wrap(function()
-        if not state.volt_set then
-          return
-        end
-        state.clock_text = os.date "%H:%M"
-        volt_redraw(state.barbuf, "bar")
-        schedule_next_minute() -- listen for the next minute
-      end))
+      state.clock_timer:start(
+        ms_to_minute,
+        0,
+        vim.schedule_wrap(function()
+          if not state.volt_set then
+            return
+          end
+          state.clock_text = os.date "%H:%M"
+          volt_redraw(state.barbuf, "bar")
+          schedule_next_minute() -- listen for the next minute
+        end)
+      )
     end
 
     -------------------------------------------------------------------------
