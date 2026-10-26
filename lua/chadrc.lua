@@ -40,7 +40,7 @@ M.ui = {
   },
   statusline = {
     enabled = true,
-    theme = "default", -- default/vscode/vscode_colored/minimal
+    theme = "minimal", -- default/vscode/vscode_colored/minimal
     -- default/round/block/arrow separators work only for default statusline theme
     -- round and block will work for minimal theme only
     separator_style = "round",
@@ -72,6 +72,36 @@ M.ui = {
           or (" " .. icon .. "  LSP ")
 
         return "%#St_Lsp#" .. label
+      end,
+
+      -- Same data source as NvChad's default `nvchad.stl.utils.git`, but the
+      -- branch icon is replaced. The added/changed/removed icons are copied
+      -- from that module so they look exactly as they did before.
+      git = function()
+        local bufnr = require("nvchad.stl.utils").stbufnr()
+        local head = vim.b[bufnr].gitsigns_head
+
+        if not head or vim.b[bufnr].gitsigns_git_status then
+          return ""
+        end
+
+        local git_status = vim.b[bufnr].gitsigns_status_dict
+        local branch_icon = vim.fn.nr2char(0xf113)
+        local added_icon = vim.fn.nr2char(0xf055)
+        local changed_icon = vim.fn.nr2char(0xf459)
+        local removed_icon = vim.fn.nr2char(0xf146)
+
+        local added = (git_status.added and git_status.added ~= 0) and (" " .. added_icon .. " " .. git_status.added)
+          or ""
+        local changed = (git_status.changed and git_status.changed ~= 0)
+            and (" " .. changed_icon .. " " .. git_status.changed)
+          or ""
+        local removed = (git_status.removed and git_status.removed ~= 0)
+            and (" " .. removed_icon .. " " .. git_status.removed)
+          or ""
+        local branch_name = branch_icon .. " " .. git_status.head
+
+        return "%#St_gitIcons#" .. " " .. branch_name .. added .. changed .. removed
       end,
     },
   },
