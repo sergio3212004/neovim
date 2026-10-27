@@ -29,6 +29,10 @@ M.nvdash = { load_on_startup = true }
 M.ui = {
   cmp = {
     icons_left = false, -- only for non-atom styles!
+    -- NvChad's default style. The "atom" style paints the blink.cmp
+    -- documentation window with `darker_black` and gives its border the same
+    -- color, so the docs popup becomes an unreadable solid block (almost black
+    -- on dark themes, almost white on light themes).
     style = "atom", -- default/flat_light/flat_dark/atom/atom_colored
     abbr_maxwidth = 60,
     -- for tailwind, css lsp etc

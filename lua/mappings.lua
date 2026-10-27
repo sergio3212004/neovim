@@ -109,7 +109,12 @@ map("n", "<localleader>dt", "<cmd>lua require('dapui').toggle()<CR>", { desc = "
 -- Python testing (dap-python)
 map("n", "<localleader>dnm", "<cmd>lua require('dap-python').test_method()<CR>", { desc = "DAP: Debug test method" })
 map("n", "<localleader>dnf", "<cmd>lua require('dap-python').test_class()<CR>", { desc = "DAP: Debug test class" })
-map("v", "<localleader>dns", "<ESC><cmd>lua require('dap-python').debug_selection()<CR>", { desc = "DAP: Debug selection" })
+map(
+  "v",
+  "<localleader>dns",
+  "<ESC><cmd>lua require('dap-python').debug_selection()<CR>",
+  { desc = "DAP: Debug selection" }
+)
 
 -- Toggle the smear cursor animation on/off
 map("n", "<leader>uS", function()
