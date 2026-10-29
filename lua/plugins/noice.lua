@@ -8,7 +8,13 @@ return {
       timeout = 3000,
       max_width = 60,
       max_height = 15,
-      background_colour = "#000000",
+      -- Background used while fading the notification in/out. Resolved on
+      -- every render so it always follows the active base46 theme instead of
+      -- being a hardcoded colour.
+      background_colour = function()
+        local ok, colors = pcall(require("base46").get_theme_tb, "base_30")
+        return (ok and colors.black) or "#000000"
+      end,
       minimum_width = 30,
       icons = {
         ERROR = "",
@@ -19,6 +25,28 @@ return {
       },
     },
     config = function(_, opts)
+      -- base46 ships a "notify" integration (borders, icons and titles).
+      -- Apply it on startup and re-apply it whenever base46 reloads the
+      -- theme, so notifications always use the active theme's colours.
+      local function apply_base46_notify_hl()
+        -- bust the cache so the integration picks up the current palette
+        package.loaded["base46.integrations.notify"] = nil
+        local ok, integration = pcall(require("base46").get_integration, "notify")
+        if not ok then
+          return
+        end
+        for group, val in pairs(integration) do
+          vim.api.nvim_set_hl(0, group, val)
+        end
+      end
+
+      apply_base46_notify_hl()
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "NvThemeReload",
+        callback = apply_base46_notify_hl,
+      })
+
       local notify = require "notify"
       notify.setup(opts)
       vim.notify = notify
